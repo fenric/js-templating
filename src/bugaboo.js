@@ -44,7 +44,7 @@ $bugaboo = function(content, request)
  * @access  public
  * @return  string
  */
-$request.getVersion = function()
+$bugaboo.getVersion = function()
 {
 	return '1.0.0';
 };
