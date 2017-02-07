@@ -1,9 +1,21 @@
 'use strict';
 
+/**
+ * It is free open-source software released under the MIT License.
+ *
+ * @author Anatoly Fenric <a.fenric@gmail.com>
+ * @copyright Copyright (c) 2017 by Fenric Laboratory
+ * @license https://raw.githubusercontent.com/fenric/js.bugaboo/master/LICENSE
+ * @link https://github.com/fenric/js.bugaboo
+ */
+
 var $bugaboo;
 
 /**
- * {description}
+ * Конструктор компонента
+ *
+ * @param   string   content
+ * @param   object   request
  *
  * @access  public
  * @return  void
@@ -24,6 +36,17 @@ $bugaboo = function(content, request)
 	this.expressions.elementary = "{{([\\w\\.]+)(?:\\|(.*?))?(?:\\:(.*?)(?:\\050(.*?)\\051)?)?}}";
 
 	this.expressions.eval = "{{@([\\s\\S]*?)}}";
+};
+
+/**
+ * Получение версии компонента
+ *
+ * @access  public
+ * @return  string
+ */
+$request.getVersion = function()
+{
+	return '1.0.0';
 };
 
 /**
@@ -751,34 +774,21 @@ $bugaboo.formatters['size'] = function(value)
 };
 
 /**
- * Форматирование Российского телефонного номера
+ * Форматирование телефонного номера
  */
-$bugaboo.formatters['phone.ru'] = function(value)
+$bugaboo.formatters['phone'] = function(value)
 {
-	if (/^9\d{9}$/.test(value))
-	{
+	if (/^9\d{9}$/.test(value)) {
 		value = value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '8 ($1) $2-$3-$4');
 	}
-
-	else if (/^800\d{7}$/.test(value))
-	{
+	else if (/^800\d{7}$/.test(value)) {
 		value = value.replace(/(\d{3})(\d{4})(\d{3})/, '8 ($1) $2-$3');
 	}
-
-	else if (/^\d{10}$/.test(value))
-	{
+	else if (/^\d{10}$/.test(value)) {
 		value = value.replace(/(\d{4})(\d{3})(\d{3})/, '8 ($1) $2-$3');
 	}
 
 	return value;
-};
-
-/**
- * Удаление из строки Российской организационно-правовой формы собственности
- */
-$bugaboo.formatters['without.businessEntity.ru'] = function(value)
-{
-	return value.replace(/^(?:ООО|ОАО|ЗАО)\s*/i, '');
 };
 
 /**
@@ -912,12 +922,4 @@ $bugaboo.formatters['numeric'] = function(value, args)
 	value = parseFloat(value);
 
 	return value.toLocaleString();
-};
-
-/**
- * Преобразование одинарной кавычки в соответствующий HTML код
- */
-$bugaboo.formatters['escapeSingleQuotes'] = function(value)
-{
-	return value.replace(new RegExp("'", 'g'), '&rsquo;');
 };
