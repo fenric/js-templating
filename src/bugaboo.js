@@ -774,24 +774,6 @@ $bugaboo.formatters['size'] = function(value)
 };
 
 /**
- * Форматирование телефонного номера
- */
-$bugaboo.formatters['phone'] = function(value)
-{
-	if (/^9\d{9}$/.test(value)) {
-		value = value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '8 ($1) $2-$3-$4');
-	}
-	else if (/^800\d{7}$/.test(value)) {
-		value = value.replace(/(\d{3})(\d{4})(\d{3})/, '8 ($1) $2-$3');
-	}
-	else if (/^\d{10}$/.test(value)) {
-		value = value.replace(/(\d{4})(\d{3})(\d{3})/, '8 ($1) $2-$3');
-	}
-
-	return value;
-};
-
-/**
  * Форматирование даты
  */
 $bugaboo.formatters['date'] = function(value, mask)
