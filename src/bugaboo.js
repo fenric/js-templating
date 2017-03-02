@@ -46,66 +46,13 @@ $bugaboo = function(content, request)
  */
 $bugaboo.getVersion = function()
 {
-	return '1.0.0';
-};
-
-/**
- * Является ли операнд нулевым
- *
- * @access  public
- * @return  bool
- */
-$bugaboo.isNull = function(value)
-{
-	return Object.prototype.toString.call(value).localeCompare('[object Null]') === 0;
-};
-
-/**
- * Является ли операнд неопределённым
- *
- * @access  public
- * @return  bool
- */
-$bugaboo.isUndefined = function(value)
-{
-	return Object.prototype.toString.call(value).localeCompare('[object Undefined]') === 0;
-};
-
-/**
- * Является ли операнд функцией
- *
- * @access  public
- * @return  bool
- */
-$bugaboo.isFunction = function(value)
-{
-	return Object.prototype.toString.call(value).localeCompare('[object Function]') === 0;
-};
-
-/**
- * Является ли операнд булевым
- *
- * @access  public
- * @return  bool
- */
-$bugaboo.isBoolean = function(value)
-{
-	return Object.prototype.toString.call(value).localeCompare('[object Boolean]') === 0;
-};
-
-/**
- * Является ли операнд объектом
- *
- * @access  public
- * @return  bool
- */
-$bugaboo.isObject = function(value)
-{
-	return Object.prototype.toString.call(value).localeCompare('[object Object]') === 0;
+	return '1.0.1';
 };
 
 /**
  * Является ли операнд массивом
+ *
+ * @param   mixed   value
  *
  * @access  public
  * @return  bool
@@ -116,7 +63,22 @@ $bugaboo.isArray = function(value)
 };
 
 /**
+ * Является ли операнд объектом
+ *
+ * @param   mixed   value
+ *
+ * @access  public
+ * @return  bool
+ */
+$bugaboo.isObject = function(value)
+{
+	return Object.prototype.toString.call(value).localeCompare('[object Object]') === 0;
+};
+
+/**
  * Является ли операнд числом
+ *
+ * @param   mixed   value
  *
  * @access  public
  * @return  bool
@@ -129,6 +91,8 @@ $bugaboo.isNumber = function(value)
 /**
  * Является ли операнд строкой
  *
+ * @param   mixed   value
+ *
  * @access  public
  * @return  bool
  */
@@ -140,6 +104,8 @@ $bugaboo.isString = function(value)
 /**
  * Является ли операнд скалярным
  *
+ * @param   mixed   value
+ *
  * @access  public
  * @return  bool
  */
@@ -149,10 +115,13 @@ $bugaboo.isScalar = function(value)
 };
 
 /**
- * {description}
+ * Форматирование шаблона
+ *
+ * @param   object   params
+ * @param   bool     stringable
  *
  * @access  public
- * @return  void
+ * @return  mixed
  */
 $bugaboo.prototype.format = function(params, stringable)
 {
@@ -162,11 +131,6 @@ $bugaboo.prototype.format = function(params, stringable)
 
 	if ($bugaboo.isObject(params))
 	{
-		if (params.date === undefined)
-		{
-			params.date = new Date();
-		}
-
 		for (var key in $bugaboo.elementary)
 		{
 			params[key] = $bugaboo.elementary[key];
@@ -185,8 +149,11 @@ $bugaboo.prototype.format = function(params, stringable)
 /**
  * {description}
  *
+ * @param   string   content
+ * @param   object   params
+ *
  * @access  public
- * @return  void
+ * @return  string
  */
 $bugaboo.prototype.formatRepeats = function(content, params)
 {
@@ -230,8 +197,11 @@ $bugaboo.prototype.formatRepeats = function(content, params)
 /**
  * {description}
  *
+ * @param   string   content
+ * @param   object   params
+ *
  * @access  public
- * @return  void
+ * @return  string
  */
 $bugaboo.prototype.formatLists = function(content, params)
 {
@@ -295,8 +265,11 @@ $bugaboo.prototype.formatLists = function(content, params)
 /**
  * {description}
  *
+ * @param   string   content
+ * @param   object   params
+ *
  * @access  public
- * @return  void
+ * @return  string
  */
 $bugaboo.prototype.formatConditions = function(content, params)
 {
@@ -333,8 +306,11 @@ $bugaboo.prototype.formatConditions = function(content, params)
 /**
  * {description}
  *
+ * @param   string   content
+ * @param   object   params
+ *
  * @access  public
- * @return  void
+ * @return  string
  */
 $bugaboo.prototype.formatElementary = function(content, params)
 {
@@ -368,8 +344,11 @@ $bugaboo.prototype.formatElementary = function(content, params)
 /**
  * {description}
  *
+ * @param   string   content
+ * @param   object   params
+ *
  * @access  public
- * @return  void
+ * @return  string
  */
 $bugaboo.prototype.formatEval = function(content, params)
 {
@@ -468,14 +447,20 @@ $bugaboo.load = function(url, complete)
 
 	xhr.onload = function(event)
 	{
-		if (this.status === 200 && complete instanceof Function)
+		if (this.status === 200)
 		{
-			complete.call(this, new $bugaboo(this.responseText, this));
+			if (complete instanceof Function)
+			{
+				complete.call(this, new $bugaboo(this.responseText, this));
+			}
 		}
 
-		if (this.status === 404 && this.onnotfound instanceof Function)
+		if (this.status === 404)
 		{
-			this.onnotfound.call(this, event);
+			if (this.onnotfound instanceof Function)
+			{
+				this.onnotfound.call(this, event);
+			}
 		}
 
 		if (this.oncomplete instanceof Function)
@@ -521,12 +506,6 @@ $bugaboo.e = function(string)
 $bugaboo.conditions = new Object();
 $bugaboo.elementary = new Object();
 $bugaboo.formatters = new Object();
-
-/**
- * Для работы с модулями и компонентами…
- */
-$bugaboo.elementary['_module'] = new Object();
-$bugaboo.elementary['_component'] = new Object();
 
 /**
  * Является ли значение пустым
@@ -607,7 +586,7 @@ $bugaboo.conditions['is equal'] = function(left, right)
 {
 	if ($bugaboo.conditions['is numeric'](left, right))
 	{
-		return parseFloat(left) === parseFloat(right);
+		return parseFloat(left) == parseFloat(right);
 	}
 
 	return left == right;
@@ -617,7 +596,7 @@ $bugaboo.conditions['is not equal'] = function(left, right)
 {
 	if ($bugaboo.conditions['is numeric'](left, right))
 	{
-		return parseFloat(left) !== parseFloat(right);
+		return parseFloat(left) != parseFloat(right);
 	}
 
 	return left != right;
@@ -746,162 +725,11 @@ $bugaboo.conditions['not in object'] = function(value, object)
 };
 
 /**
- * Форматирование размера
+ * Тестирование регулярного выражения
  */
-$bugaboo.formatters['size'] = function(value)
+$bugaboo.conditions['test regular expression'] = function(value, regularExpression)
 {
-	var round, unit;
+	regularExpression = new RegExp(regularExpression);
 
-	round = value;
-	unit = 'B';
-
-	if (round > 1024) {
-		round /= 1024;
-		unit = 'Kb';
-
-		if (round > 1024) {
-			round /= 1024;
-			unit = 'Mb';
-
-			if (round > 1024) {
-				round /= 1024;
-				unit = 'Gb';
-			}
-		}
-	}
-
-	return Math.floor(round) + ' ' + unit;
-};
-
-/**
- * Форматирование даты
- */
-$bugaboo.formatters['date'] = function(value, mask)
-{
-	var date, parts, year, month, day, hours, minutes, seconds, quarter, tQuarter;
-
-	if (value === 'now') {
-		value = (new Date).toString();
-	}
-
-	date = new Date(value);
-
-	if (isNaN(date.getTime())) {
-		return value;
-	}
-
-	parts = new Array();
-
-	year = date.getFullYear();
-	month = date.getMonth() + 1;
-	day = date.getDate();
-	hours = date.getHours();
-	minutes = date.getMinutes();
-	seconds = date.getSeconds();
-	quarter = tQuarter = null;
-
-	if (month >= 1 && month <= 3) {
-		quarter = 1;
-		tQuarter = 'I';
-	}
-	else if (month >= 4 && month <= 6) {
-		quarter = 2;
-		tQuarter = 'II';
-	}
-	else if (month >= 7 && month <= 9) {
-		quarter = 3;
-		tQuarter = 'III';
-	}
-	else if (month >= 10 && month <= 12) {
-		quarter = 4;
-		tQuarter = 'IV';
-	}
-
-	if (month < 10) {
-		month = '0' + month;
-	}
-	if (day < 10) {
-		day = '0' + day;
-	}
-	if (hours < 10) {
-		hours = '0' + hours;
-	}
-	if (minutes < 10) {
-		minutes = '0' + minutes;
-	}
-	if (seconds < 10) {
-		seconds = '0' + seconds;
-	}
-
-	mask = mask || 'd.m.Y';
-
-	for (var i = 0; i < mask.length; i++)
-	{
-		switch (mask[i])
-		{
-			case 'Y' :
-				parts.push(year);
-				break;
-
-			case 'm' :
-				parts.push(month);
-				break;
-
-			case 'd' :
-				parts.push(day);
-				break;
-
-			case 'H' :
-				parts.push(hours);
-				break;
-
-			case 'i' :
-				parts.push(minutes);
-				break;
-
-			case 's' :
-				parts.push(seconds);
-				break;
-
-			case 'q' :
-				parts.push(quarter);
-				break;
-
-			case 'Q' :
-				parts.push(tQuarter);
-				break;
-
-			default :
-				parts.push(mask[i]);
-				break;
-		}
-	}
-
-	return parts.join('');
-};
-
-/**
- * Форматирование число
- *
- * @todo не полагаться на стандартные средства движка...
- */
-$bugaboo.formatters['numeric'] = function(value, args)
-{
-	args = args || '';
-
-	args = args.split(',').map(function(arg)
-	{
-		arg = arg.replace(/^\s+/, '');
-		arg = arg.replace(/\s+$/, '');
-
-		return arg;
-	});
-
-	value = parseFloat(value);
-
-	value = value.toFixed(args[0] || 2);
-
-	value = parseFloat(value);
-
-	return value.toLocaleString();
+	return !! regularExpression.test(value);
 };
