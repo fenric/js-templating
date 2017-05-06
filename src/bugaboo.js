@@ -143,7 +143,7 @@ $bugaboo.prototype.format = function(params, stringable)
 	content = this.formatElementary(content, params);
 	content = this.formatEval(content, params);
 
-	return stringable ? content : this.fragmentation(content);
+	return stringable ? content : $bugaboo.fragmentation(content);
 };
 
 /**
@@ -408,33 +408,6 @@ $bugaboo.prototype.pointwisely = function(object, notation)
  * @access  public
  * @return  void
  */
-$bugaboo.prototype.fragmentation = function(html)
-{
-	var fragment, container, node;
-
-	fragment = document.createDocumentFragment();
-
-	container = document.createElement('div');
-
-	container.innerHTML = html;
-
-	for (node = 0; node < container.childNodes.length; node++)
-	{
-		if (container.childNodes[node].nodeType === Node.ELEMENT_NODE)
-		{
-			fragment.appendChild(container.childNodes[node]);
-		}
-	}
-
-	return fragment;
-};
-
-/**
- * {description}
- *
- * @access  public
- * @return  void
- */
 $bugaboo.load = function(url, complete)
 {
 	var xhr = new XMLHttpRequest();
@@ -482,6 +455,33 @@ $bugaboo.load = function(url, complete)
 	xhr.send();
 
 	return xhr;
+};
+
+/**
+ * {description}
+ *
+ * @access  public
+ * @return  void
+ */
+$bugaboo.fragmentation = function(html)
+{
+	var fragment, container, node;
+
+	fragment = document.createDocumentFragment();
+
+	container = document.createElement('div');
+
+	container.innerHTML = html;
+
+	for (node = 0; node < container.childNodes.length; node++)
+	{
+		if (container.childNodes[node].nodeType === Node.ELEMENT_NODE)
+		{
+			fragment.appendChild(container.childNodes[node]);
+		}
+	}
+
+	return fragment;
 };
 
 /**
