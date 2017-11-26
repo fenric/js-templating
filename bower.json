@@ -1,0 +1,18 @@
+{
+	"license": "MIT",
+	"name": "fenric-js-templating",
+	"description": "Lite JavaScript templating.",
+	"homepage": "https://github.com/fenric/js-templating",
+	"main": "src/bugaboo.js",
+	"keywords": [
+		"fenric",
+		"templating"
+	],
+	"authors": [
+		"Anatoly Fenric <anatoly.fenric@gmail.com>"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fenric/js-templating.git"
+	}
+}
