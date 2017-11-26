@@ -3,10 +3,10 @@
 /**
  * It is free open-source software released under the MIT License.
  *
- * @author Anatoly Fenric <a.fenric@gmail.com>
+ * @author Anatoly Fenric <anatoly.fenric@gmail.com>
  * @copyright Copyright (c) 2017 by Fenric Laboratory
- * @license https://raw.githubusercontent.com/fenric/js.bugaboo/master/LICENSE
- * @link https://github.com/fenric/js.bugaboo
+ * @license https://raw.githubusercontent.com/fenric/js-templating/master/LICENSE
+ * @link https://github.com/fenric/js-templating
  */
 
 var $bugaboo;
@@ -14,11 +14,12 @@ var $bugaboo;
 /**
  * Конструктор компонента
  *
- * @param   string   content
- * @param   object   request
+ * @constructor
  *
- * @access  public
- * @return  void
+ * @param   {string}   content
+ * @param   {object}   request
+ *
+ * @return  {void}
  */
 $bugaboo = function(content, request)
 {
@@ -41,21 +42,19 @@ $bugaboo = function(content, request)
 /**
  * Получение версии компонента
  *
- * @access  public
- * @return  string
+ * @return  {string}
  */
 $bugaboo.getVersion = function()
 {
-	return '1.0.1';
+	return '1.0.2';
 };
 
 /**
  * Является ли операнд массивом
  *
- * @param   mixed   value
+ * @param   {mixed}   value
  *
- * @access  public
- * @return  bool
+ * @return  {bool}
  */
 $bugaboo.isArray = function(value)
 {
@@ -65,10 +64,9 @@ $bugaboo.isArray = function(value)
 /**
  * Является ли операнд объектом
  *
- * @param   mixed   value
+ * @param   {mixed}   value
  *
- * @access  public
- * @return  bool
+ * @return  {bool}
  */
 $bugaboo.isObject = function(value)
 {
@@ -78,10 +76,9 @@ $bugaboo.isObject = function(value)
 /**
  * Является ли операнд числом
  *
- * @param   mixed   value
+ * @param   {mixed}   value
  *
- * @access  public
- * @return  bool
+ * @return  {bool}
  */
 $bugaboo.isNumber = function(value)
 {
@@ -91,10 +88,9 @@ $bugaboo.isNumber = function(value)
 /**
  * Является ли операнд строкой
  *
- * @param   mixed   value
+ * @param   {mixed}   value
  *
- * @access  public
- * @return  bool
+ * @return  {bool}
  */
 $bugaboo.isString = function(value)
 {
@@ -104,10 +100,9 @@ $bugaboo.isString = function(value)
 /**
  * Является ли операнд скалярным
  *
- * @param   mixed   value
+ * @param   {mixed}   value
  *
- * @access  public
- * @return  bool
+ * @return  {bool}
  */
 $bugaboo.isScalar = function(value)
 {
@@ -117,11 +112,10 @@ $bugaboo.isScalar = function(value)
 /**
  * Форматирование шаблона
  *
- * @param   object   params
- * @param   bool     stringable
+ * @param   {object}   params
+ * @param   {bool}     stringable
  *
- * @access  public
- * @return  mixed
+ * @return  {mixed}
  */
 $bugaboo.prototype.format = function(params, stringable)
 {
@@ -149,11 +143,10 @@ $bugaboo.prototype.format = function(params, stringable)
 /**
  * {description}
  *
- * @param   string   content
- * @param   object   params
+ * @param   {string}   content
+ * @param   {object}   params
  *
- * @access  public
- * @return  string
+ * @return  {string}
  */
 $bugaboo.prototype.formatRepeats = function(content, params)
 {
@@ -197,11 +190,10 @@ $bugaboo.prototype.formatRepeats = function(content, params)
 /**
  * {description}
  *
- * @param   string   content
- * @param   object   params
+ * @param   {string}   content
+ * @param   {object}   params
  *
- * @access  public
- * @return  string
+ * @return  {string}
  */
 $bugaboo.prototype.formatLists = function(content, params)
 {
@@ -265,11 +257,10 @@ $bugaboo.prototype.formatLists = function(content, params)
 /**
  * {description}
  *
- * @param   string   content
- * @param   object   params
+ * @param   {string}   content
+ * @param   {object}   params
  *
- * @access  public
- * @return  string
+ * @return  {string}
  */
 $bugaboo.prototype.formatConditions = function(content, params)
 {
@@ -306,11 +297,10 @@ $bugaboo.prototype.formatConditions = function(content, params)
 /**
  * {description}
  *
- * @param   string   content
- * @param   object   params
+ * @param   {string}   content
+ * @param   {object}   params
  *
- * @access  public
- * @return  string
+ * @return  {string}
  */
 $bugaboo.prototype.formatElementary = function(content, params)
 {
@@ -344,11 +334,10 @@ $bugaboo.prototype.formatElementary = function(content, params)
 /**
  * {description}
  *
- * @param   string   content
- * @param   object   params
+ * @param   {string}   content
+ * @param   {object}   params
  *
- * @access  public
- * @return  string
+ * @return  {string}
  */
 $bugaboo.prototype.formatEval = function(content, params)
 {
@@ -371,8 +360,10 @@ $bugaboo.prototype.formatEval = function(content, params)
 /**
  * {description}
  *
- * @access  public
- * @return  void
+ * @param   {object}   object
+ * @param   {string}   notation
+ *
+ * @return  {mixed}
  */
 $bugaboo.prototype.pointwisely = function(object, notation)
 {
@@ -405,8 +396,10 @@ $bugaboo.prototype.pointwisely = function(object, notation)
 /**
  * {description}
  *
- * @access  public
- * @return  void
+ * @param   {string}     url
+ * @param   {callback}   complete
+ *
+ * @return  {object}
  */
 $bugaboo.load = function(url, complete)
 {
@@ -415,7 +408,6 @@ $bugaboo.load = function(url, complete)
 	xhr.open('GET', (url + (url.indexOf('?') < 0 ? '?' : '&') + Math.random()), true);
 
 	xhr.setRequestHeader('Content-Type', 'text/html');
-
 	xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 
 	xhr.onload = function(event)
@@ -427,29 +419,6 @@ $bugaboo.load = function(url, complete)
 				complete.call(this, new $bugaboo(this.responseText, this));
 			}
 		}
-
-		if (this.status === 404)
-		{
-			if (this.onnotfound instanceof Function)
-			{
-				this.onnotfound.call(this, event);
-			}
-		}
-
-		if (this.oncomplete instanceof Function)
-		{
-			this.oncomplete.call(this, event);
-		}
-	};
-
-	xhr.notfound = function(callback)
-	{
-		xhr.onnotfound = callback;
-	};
-
-	xhr.complete = function(callback)
-	{
-		xhr.oncomplete = callback;
 	};
 
 	xhr.send();
@@ -460,8 +429,9 @@ $bugaboo.load = function(url, complete)
 /**
  * {description}
  *
- * @access  public
- * @return  void
+ * @param   {string}   html
+ *
+ * @return  {object}
  */
 $bugaboo.fragmentation = function(html)
 {
@@ -487,15 +457,15 @@ $bugaboo.fragmentation = function(html)
 /**
  * {description}
  *
- * @access  public
- * @return  void
+ * @param   {string}   string
+ *
+ * @return  {string}
  */
 $bugaboo.e = function(string)
 {
 	string = string.replace(new RegExp('<', 'g'), '&lt;');
-	string = string.replace(new RegExp('>', 'g'), '&gt;');
-
 	string = string.replace(new RegExp('"', 'g'), '&quot;');
+	string = string.replace(new RegExp('>', 'g'), '&gt;');
 
 	return string;
 };
@@ -727,9 +697,9 @@ $bugaboo.conditions['not in object'] = function(value, object)
 /**
  * Тестирование регулярного выражения
  */
-$bugaboo.conditions['test regular expression'] = function(value, regularExpression)
+$bugaboo.conditions['test regular expression'] = function(value, expression)
 {
-	regularExpression = new RegExp(regularExpression);
+	expression = new RegExp(expression);
 
-	return !! regularExpression.test(value);
+	return !! expression.test(value);
 };
