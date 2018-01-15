@@ -318,7 +318,7 @@ $bugaboo.prototype.formatElementary = function(content, params)
 			{
 				if ($bugaboo.formatters[match[3]] instanceof Function)
 				{
-					value = $bugaboo.formatters[match[3]].call(params, value, match[4] || null);
+					value = $bugaboo.formatters[match[3]].call(params, value, match[4] || null) || '';
 				}
 			}
 		}
